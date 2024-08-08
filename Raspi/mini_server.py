@@ -5,7 +5,7 @@ def on_connect(client, userdata, flags, rc):
 
     # Subscribing in on_connect() means that if we lose the connection and
     client.subscribe("/esp8266/temperature")
-    client.subscribe("/esp8266/humidity")
+    client.subscribe("/esp8266/filhadapulta")
 
 def on_message(client, userdata, message):
     print("Received message '" + str(message.payload) + "' on topic '" + message.topic)
