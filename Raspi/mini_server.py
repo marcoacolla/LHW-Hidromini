@@ -9,7 +9,7 @@ import paho.mqtt.client as mqtt
 mqtt_topic = "bolas"
 mqtt_broker_ip = "127.0.0.1"
 
-client = mqtt.Client()
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 
 # These functions handle what happens when the MQTT client connects
 # to the broker, and what happens then the topic receives a message
