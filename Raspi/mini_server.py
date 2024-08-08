@@ -18,7 +18,7 @@ def main():
 
     mqtt_client.connect('localhost', 1883, 60) 
     # Connect to the MQTT server and process messages in a background thread. 
-    mqtt_client.loop_forever() 
+    mqtt_client.loop_start() 
 
 if __name__ == '__main__':
     print('MQTT to InfluxDB bridge')
