@@ -5,7 +5,7 @@ def on_connect(client, userdata, flags, reason_code, properties):
         print(f"Failed to connect: {reason_code}. loop_forever() will retry connection")
     else:
     # Subscribing in on_connect() means that if we lose the connection and
-        client.subscribe("/esp8266/temperature")
+        client.subscribe("/esp8266/pressure")
         client.subscribe("/esp8266/humidity")
 
 def on_message(client, userdata, message):
