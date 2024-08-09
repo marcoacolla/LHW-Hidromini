@@ -1,13 +1,13 @@
 import paho.mqtt.client as mqtt
 
-def on_connect(client, userdata, flags, rc):
+def on_connect(self,client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
 
     # Subscribing in on_connect() means that if we lose the connection and
     client.subscribe("/esp8266/temperature")
     client.subscribe("/esp8266/humidity")
 
-def on_message(client, userdata, message):
+def on_message(self, client, userdata, message):
     print("Received message '" + str(message.payload) + "' on topic '" + message.topic)
     
 
