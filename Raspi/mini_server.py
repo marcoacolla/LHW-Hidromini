@@ -16,8 +16,8 @@ def main():
     mqtt_client.on_connect = on_connect
     mqtt_client.on_message = on_message
 
-    mqtt_client.connect('127.0.0.1', 1883) 
-    # Connect to the MQTT server and process messages in a background thread. 
+    mqtt_client.connect("mqtt.eclipseprojects.io")
+    # C_onnect to the MQTT server and process messages in a background thread. 
     mqtt_client.loop_forever()
 
 if __name__ == '__main__':
