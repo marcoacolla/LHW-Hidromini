@@ -1,14 +1,12 @@
 import paho.mqtt.client as mqtt
 
-def on_connect(client, userdata, mid, reason_code_list, properties):
-    if reason_code_list[0].is_failure:
-        print(f"Broker rejected you subscription: {reason_code_list[0]}")
+def on_connect(client, userdata, flags, reason_code, properties):
+    if reason_code.is_failure:
+        print(f"Failed to connect: {reason_code}. loop_forever() will retry connection")
     else:
-        print(f"Broker granted the following QoS: {reason_code_list[0].value}")
-
     # Subscribing in on_connect() means that if we lose the connection and
-    client.subscribe("/esp8266/temperature")
-    client.subscribe("/esp8266/humidity")
+        client.subscribe("/esp8266/temperature")
+        client.subscribe("/esp8266/humidity")
 
 def on_message(client, userdata, message):
     print("Received message '" + str(message.payload) + "' on topic '" + message.topic)
