@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 
 def on_connect(client, userdata, mid, reason_code_list, properties):
-    print("Connected with result code {reason_code_list[0].value} ")
+    print(f"Connected with result code: {reason_code_list[0].value} ")
 
     # Subscribing in on_connect() means that if we lose the connection and
     client.subscribe("/esp8266/temperature")
