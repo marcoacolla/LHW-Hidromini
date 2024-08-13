@@ -19,7 +19,7 @@ def on_connect(client, userdata, flags, reason_code, properties):
         print(f"Failed to connect: {reason_code}. loop_forever() will retry connection")
     else:
     # Subscribing in on_connect() means that if we lose the connection and
-        for topic in data.items():
+        for topic, info in data.items():
             client.subscribe(f"/mcc/{topic}")
 
 

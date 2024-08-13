@@ -9,6 +9,5 @@ data = {
     "dc_cur": 0
 }
 
-for topic in data.items():
-    data[topic] = 1
-    print(data)
+for topic, data in data.items():
+    print(f"/mcc/{topic}")
