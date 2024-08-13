@@ -9,17 +9,29 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 
-let valorRecebido = 0; // Valor inicial
+let variables = {
+    pressure1: 0,
+    pressure2: 0,
+    pressure3: 0,
 
-app.post('/api/valor', (req, res) => {
-    valorRecebido = req.body.valor; // Atualiza o valor recebido
-    console.log(`Valor recebido: ${valorRecebido}`);
-    res.json({ valor: valorRecebido }); // Retorna o valor atualizado
+    motor_rpm: 0,
+    gen_rpm: 0,
+
+    dc_cur: 0 
+};
+
+app.post('/api/variables', (req, res) => {
+    const newVariables = req.body;
+
+    variables = { ...variables, ...newVariables };
+
+    console.log(`Valor recebido:`, variables);
+    res.json(variables); // Retorna o valor atualizado
 });
 
 // Nova rota GET para obter o valor atual
-app.get('/api/valor', (req, res) => {
-    res.json({ valor: valorRecebido }); // Retorna o valor armazenado
+app.get('/api/variables', (req, res) => {
+    res.json(variables); // Retorna o valor armazenado
 });
 
 app.listen(port, () => {
