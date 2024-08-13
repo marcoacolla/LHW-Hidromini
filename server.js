@@ -1,7 +1,14 @@
 const express = require('express');
 const path = require('path'); // Módulo para lidar com caminhos de diretórios
+const http = require('http');
+const WebSocket = require('ws');
 
 const app = express();
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
+
+
+
 const port = 3000;
 
 // Configura o Express para servir arquivos estáticos da pasta "public"
@@ -20,20 +27,35 @@ let variables = {
     dc_cur: 0 
 };
 
+function broadcast(data) {
+    wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify(data));
+        }
+    });
+}
+
+// Rota POST para atualizar uma ou mais variáveis
 app.post('/api/variables', (req, res) => {
-    const newVariables = req.body;
+    variables = { ...variables, ...req.body };
+    console.log('Variáveis atualizadas:', variables);
 
-    variables = { ...variables, ...newVariables };
+    // Envia as variáveis atualizadas para todos os clientes conectados via WebSocket
+    broadcast(variables);
 
-    console.log(`Valor recebido:`, variables);
-    res.json(variables); // Retorna o valor atualizado
+    res.json(variables);
 });
 
-// Nova rota GET para obter o valor atual
+// Rota GET para obter o estado atual das variáveis
 app.get('/api/variables', (req, res) => {
-    res.json(variables); // Retorna o valor armazenado
+    res.json(variables);
 });
 
-app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
+// Servidor WebSocket para comunicação em tempo real
+wss.on('connection', ws => {
+    ws.send(JSON.stringify(variables)); // Envia os valores atuais quando um cliente se conecta
 });
+
+server.listen(port, () => {
+    console.log(`Servidor rodando em http://localhost:${port}`);
+})
