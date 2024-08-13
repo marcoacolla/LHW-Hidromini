@@ -4,7 +4,14 @@ import requests
 url = "http://10.0.0.181:3000/api/variables"
 
 data = {
-    "pressure1": 0
+    "pressure1": 0,
+    "pressure2": 0,
+    "pressure3": 0,
+
+    "motor_rpm": 0,
+    "gen_rpm": 0,
+
+    "dc_cur": 0
 }
 
 def on_connect(client, userdata, flags, reason_code, properties):
@@ -12,13 +19,15 @@ def on_connect(client, userdata, flags, reason_code, properties):
         print(f"Failed to connect: {reason_code}. loop_forever() will retry connection")
     else:
     # Subscribing in on_connect() means that if we lose the connection and
-        client.subscribe("/esp8266/pressure")
-        client.subscribe("/esp8266/humidity")
+        for topic in data.items():
+            client.subscribe(f"/mcc/{topic}")
+
 
 def on_message(client, userdata, message):
     print("Received message '" + str(message.payload) + "' on topic '" + message.topic)
-    
-    data["pressure1"] = float(message.payload)
+    for topic, value in data.items():
+        if message.topic == f"/mcc/{topic}":
+            data[topic] = float(message.payload)
     response = requests.post(url, json=data)
     print("Status Code:", response.status_code)
     print("Resposta:", response.json())
