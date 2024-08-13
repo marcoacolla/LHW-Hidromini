@@ -1,6 +1,6 @@
 import requests
 
-url = "http://localhost:3000/api/valor"  # Substitua pela URL para onde você quer enviar a requisição
+url = "http://10.0.0.181:3000/api/valor"  # Substitua pela URL para onde você quer enviar a requisição
 data = {
     "pressure_1": 555
 }
