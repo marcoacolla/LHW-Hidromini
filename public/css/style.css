@@ -28,6 +28,8 @@ html {
     text-decoration: none; 
     font-size: 30px; 
     margin: 2px; 
+    text-align: center;
+    vertical-align: middle;
     cursor: pointer; 
     width: 200px;
   }

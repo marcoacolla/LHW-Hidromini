@@ -24,7 +24,11 @@ let variables = {
     motor_rpm: 0,
     gen_rpm: 0,
 
-    dc_cur: 0 
+    dc_cur: 0,
+    dc_volt: 0,
+
+    valve1: true,
+    valve2: true
 };
 
 function broadcast(data) {
