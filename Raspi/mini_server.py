@@ -4,17 +4,18 @@ import requests
 url = "http://10.0.0.181:3000/api/variables"
 
 measures = {  
-    "pressure1": {"value": 0.0, "type": float},
-    "pressure2": {"value": 0.0, "type": float},
-    "pressure3": {"value": 0.0, "type": float},
+    "pressure1": {"value": 0.0, "type": float, "id": "00"},
+    "pressure2": {"value": 0.0, "type": float, "id": "01"},
+    "pressure3": {"value": 0.0, "type": float, "id": "02"},
 
-    "motor_rpm": {"value": 0.0, "type": float},
-    "gen_rpm": {"value": 0.0, "type": float},
+    "motor_rpm": {"value": 0.0, "type": float, "id": "03"},
+    "gen_rpm": {"value": 0.0, "type": float, "id": "04"},
 
-    "dc_cur": {"value": 0.0, "type": float},
-    "dc_volt": {"value": 0.0, "type": float},
+    "dc_cur": {"value": 0.0, "type": float, "id": "05"},
+    "dc_volt": {"value": 0.0, "type": float, "id": "06"},
 
-    "valve1": {"value": False, "type": bool},
+    "valve1": {"value": False, "type": bool, "id": "07"},
+    "valve1": {"value": False, "type": bool, "id": "08"},
 }
 
 
