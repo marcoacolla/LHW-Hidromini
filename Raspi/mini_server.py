@@ -3,32 +3,36 @@ import requests
 
 url = "http://10.0.0.181:3000/api/variables"
 
-data = {
-    "pressure1": 0,
-    "pressure2": 0,
-    "pressure3": 0,
+measures = {  
+    "pressure1": {"value": 0.0, "type": float},
+    "pressure2": {"value": 0.0, "type": float},
+    "pressure3": {"value": 0.0, "type": float},
 
-    "motor_rpm": 0,
-    "gen_rpm": 0,
+    "motor_rpm": {"value": 0.0, "type": float},
+    "gen_rpm": {"value": 0.0, "type": float},
 
-    "dc_cur": 0
+    "dc_cur": {"value": 0.0, "type": float},
+    "dc_volt": {"value": 0.0, "type": float},
+
+    "valve1": {"value": False, "type": bool},
 }
+
 
 def on_connect(client, userdata, flags, reason_code, properties):
     if reason_code.is_failure:
         print(f"Failed to connect: {reason_code}. loop_forever() will retry connection")
     else:
     # Subscribing in on_connect() means that if we lose the connection and
-        for topic, info in data.items():
+        for topic, info in measures.items():
             client.subscribe(f"/mcc/{topic}")
 
 
 def on_message(client, userdata, message):
     print("Received message '" + str(message.payload) + "' on topic '" + message.topic)
-    for topic, value in data.items():
+    for topic, infos in measures.items():
         if message.topic == f"/mcc/{topic}":
-            data[topic] = float(message.payload)
-    response = requests.post(url, json=data)
+            infos["value"] = infos["type"](message.payload)
+    response = requests.post(url, json=measures)
     print("Status Code:", response.status_code)
     print("Resposta:", response.json())
 

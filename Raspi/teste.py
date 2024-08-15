@@ -1,13 +1,12 @@
-data = {
-    "pressure1": 0,
-    "pressure2": 0,
-    "pressure3": 0,
-
-    "motor_rpm": 0,
-    "gen_rpm": 0,
-
-    "dc_cur": 0
+data = {  
+    "pressure1": {"value": 1.53, "type": int},
+    "pressure2": {"value": 1.53, "type": float},
+    "pressure3": {"value": 0, "type": bool},
 }
 
-for topic, data in data.items():
-    print(f"/mcc/{topic}")
+message = "/mcc/pressure2"
+for topic, infos in data.items():
+        if message == f"/mcc/{topic}":
+            infos["value"] = infos["type"](69)
+
+print(data["pressure3"]["type"](data["pressure3"]["value"]))
