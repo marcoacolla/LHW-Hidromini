@@ -10,7 +10,7 @@ const socket = new WebSocket('ws://10.0.0.181:3000');
     document.getElementById('motor_rpm').textContent = resp_data.motor_rpm + " RPM";
     document.getElementById('gen_rpm').textContent = resp_data.gen_rpm + " RPM";
 
-    document.getElementById('dc_cur').textContent = resp_data.dc_cur + " RPM";
+    document.getElementById('dc_cur').textContent = resp_data.dc_cur + " A";
     
 }
 
