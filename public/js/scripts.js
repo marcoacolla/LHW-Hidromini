@@ -14,8 +14,17 @@ const socket = new WebSocket('ws://10.0.0.181:3000');
     
 }
 
+function updateTime() {
+    var now = new Date();
+    var datetime = now.getDate().toString().padStart(2, '0') + '/' + (now.getMonth()+1).toString().padStart(2, '0') + '/' + now.getFullYear() + ' ' + now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0') + ':' + now.getSeconds().toString().padStart(2, '0');
+    document.getElementById('update_time').textContent = datetime;
+}
+
+
+
 socket.onmessage = function(event) {
     const data = JSON.parse(event.data);
+    updateTime();
     updateVariables(data);
 };
 
