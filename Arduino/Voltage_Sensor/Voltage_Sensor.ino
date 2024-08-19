@@ -1,5 +1,7 @@
+
 float voltage;
 int pino = A0;
+
 void setup()
 {
   Serial.begin(9600);                    //Start Serial Monitor to display current read value on Serial monitor

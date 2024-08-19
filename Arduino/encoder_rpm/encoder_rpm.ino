@@ -70,8 +70,6 @@ void RPM_COUNT(){
     lcd.print("Hz: ");
     lcd.print(hz, 2);
     
-   
-    
     pulses = 0;
   
 }
