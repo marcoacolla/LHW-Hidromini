@@ -11,12 +11,10 @@
             ],
             "intelliSenseMode": "gcc-x64",
             "includePath": [
-                "C:\\Users\\ACER\\Documents\\LHW-Hidromini\\Arduino\\encoder_rpm",
+                "C:\\Users\\ACER\\Documents\\LHW-Hidromini\\Arduino\\pressure_rpm\\pressure_and_rpm",
                 "C:\\Users\\ACER\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.1-dc859c1e67\\esp32\\qio_qspi\\include",
                 "C:\\Users\\ACER\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.3\\cores\\esp32",
                 "C:\\Users\\ACER\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.3\\variants\\esp32da",
-                "C:\\Users\\ACER\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.3\\libraries\\Wire\\src",
-                "C:\\Users\\ACER\\Documents\\Arduino\\libraries\\hd44780",
                 "c:\\users\\acer\\appdata\\local\\arduino15\\packages\\esp32\\tools\\esp-x32\\2302\\xtensa-esp32-elf\\include\\c++\\12.2.0",
                 "c:\\users\\acer\\appdata\\local\\arduino15\\packages\\esp32\\tools\\esp-x32\\2302\\xtensa-esp32-elf\\include\\c++\\12.2.0\\xtensa-esp32-elf",
                 "c:\\users\\acer\\appdata\\local\\arduino15\\packages\\esp32\\tools\\esp-x32\\2302\\xtensa-esp32-elf\\include\\c++\\12.2.0\\backward",
