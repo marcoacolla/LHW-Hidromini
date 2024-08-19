@@ -15,8 +15,16 @@ measures = {
     "dc_volt": {"value": 0.0, "type": float, "id": "06"},
 
     "valve1": {"value": False, "type": bool, "id": "07"},
-    "valve1": {"value": False, "type": bool, "id": "08"},
+    "valve2": {"value": False, "type": bool, "id": "08"}
 }
+
+def prepare_data(measures):
+    to_send = {}
+    for key, sub_dict in measures.items():
+        to_send[key] = {"value": sub_dict["value"]}
+    return to_send
+
+# Prepara os dados para envio
 
 
 def on_connect(client, userdata, flags, reason_code, properties):
@@ -33,9 +41,11 @@ def on_message(client, userdata, message):
     for topic, infos in measures.items():
         if message.topic == f"/mcc/{topic}":
             infos["value"] = infos["type"](message.payload)
-    response = requests.post(url, json=measures)
+    toSend = prepare_data(measures)
+    response = requests.post(url, json=toSend)
     print("Status Code:", response.status_code)
     print("Resposta:", response.json())
+    
 
 
 print('MQTT to InfluxDB bridge')
