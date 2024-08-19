@@ -16,19 +16,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 
-let variables = {
-    pressure1: 0,
-    pressure2: 0,
-    pressure3: 0,
 
-    motor_rpm: 0,
-    gen_rpm: 0,
-
-    dc_cur: 0,
-    dc_volt: 0,
-
-    valve1: true,
-    valve2: true
+let measures = {
+    "pressure1": {"value": 0.0},
+    "pressure2": {"value": 0.0},
+    "pressure3": {"value": 0.0},
+    "motor_rpm": {"value": 0.0},
+    "gen_rpm": {"value": 0.0},
+    "dc_cur": {"value": 0.0},
+    "dc_volt": {"value": 0.0},
+    "valve1": {"value": false},
+    "valve2": {"value": false}
 };
 
 function broadcast(data) {
@@ -41,10 +39,13 @@ function broadcast(data) {
 
 // Rota POST para atualizar uma ou mais variáveis
 app.post('/api/sensors', (req, res) => {
-    variables = { ...variables, ...req.body };
-    console.log('Variáveis atualizadas:', variables);
-
-    // Envia as variáveis atualizadas para todos os clientes conectados via WebSocket
+    const novosDados = req.body;
+    for (let key in novosDados) {
+        if (measures.hasOwnProperty(key) && novosDados[key].hasOwnProperty('value')) {
+            // Atualiza apenas o campo 'value'
+            measures[key].value = novosDados[key].value;
+        }
+    }
     broadcast(variables);
 
     res.json(variables);
