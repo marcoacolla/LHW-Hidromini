@@ -40,7 +40,7 @@ function broadcast(data) {
 }
 
 // Rota POST para atualizar uma ou mais variáveis
-app.post('/api/variables', (req, res) => {
+app.post('/api/sensors', (req, res) => {
     variables = { ...variables, ...req.body };
     console.log('Variáveis atualizadas:', variables);
 
@@ -51,7 +51,7 @@ app.post('/api/variables', (req, res) => {
 });
 
 // Rota GET para obter o estado atual das variáveis
-app.get('/api/variables', (req, res) => {
+app.get('/api/sensors', (req, res) => {
     res.json(variables);
 });
 
