@@ -39,7 +39,7 @@ void loop() {
   
 unsigned long currentMillis = millis();
 if (currentMillis - previousMillis >= INTERVAL) {
-  OTHER_THINGS();
+  MEASURE_PRESSURE();
   RPM_COUNT();
   previousMillis = currentMillis;
 } 
@@ -49,13 +49,9 @@ if (currentMillis - previousMillis >= INTERVAL) {
 void pulseCounter(){
   pulses++;
 }
-void OTHER_THINGS(){
-  
-    // Leitura do manômetro de pressão
-    float bar1 = ((analogRead(PRESSURE1_PIN) * (sensorMaxP / 1023.0)));        // Converte a tensão para pressão em bar
-    float bar2 = ((analogRead(PRESSURE2_PIN) * (sensorMaxP / 1023.0)));      // Converte a tensão para pressão em bar
-    float bar3 = ((analogRead(PRESSURE3_PIN) * (sensorMaxP / 1023.0)));        // Converte a tensão para pressão em bar
 
+void MEASURE_DC_CURRENT(){
+  
     // Leitura do sensor ACS712 com amostragem
     float AcsValue = 0.0, Samples = 0.0, AvgAcs = 0.0, AcsValueF = 0.0;
     for (int x = 0; x < 10; x++) {
@@ -67,6 +63,14 @@ void OTHER_THINGS(){
     voltage = AvgAcs * (5.0 / 1024.0);        // Converte a média para tensão (0-5V)
     AcsValueF = (2.5 - voltage) * 1000 / 0.185; // Calcula a corrente em mA
 
+}
+void MEASURE_PRESSURE(){
+  
+    // Leitura do manômetro de pressão
+    float bar1 = ((analogRead(PRESSURE1_PIN) * (sensorMaxP / 1023.0)));        // Converte a tensão para pressão em bar
+    float bar2 = ((analogRead(PRESSURE2_PIN) * (sensorMaxP / 1023.0)));      // Converte a tensão para pressão em bar
+    float bar3 = ((analogRead(PRESSURE3_PIN) * (sensorMaxP / 1023.0)));   
+         // Converte a tensão para pressão em bar
   if(Serial3.available()){ 
       Serial3.print(pressure1_id);
       Serial3.println(bar1);
@@ -77,7 +81,6 @@ void OTHER_THINGS(){
       Serial3.print(pressure3_id);
       Serial3.println(bar3);
       delay(20);
-
 
 
       delay(20);
