@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 import requests
 
-url = "http://10.0.0.181:3000/api/variables"
+url = "http://10.0.0.181:3000/api/sensors"
 
 measures = {  
     "pressure1": {"value": 0.0, "type": float, "id": "00"},
