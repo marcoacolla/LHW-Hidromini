@@ -71,7 +71,7 @@ while True:
     if (time.time() - lastMessageTime) > interval and isPaused == False:
         
         updateSite(toSend)
-
+        print("Suga")
 
 
         isPaused = True
