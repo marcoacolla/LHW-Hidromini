@@ -65,7 +65,7 @@ mqtt_client.connect("10.0.1.119",1883,60)
 # C_onnect to the MQTT server and process messages in a background thread. 
 mqtt_client.loop_forever()
 
-
+print("Suguei")
 
 while True:
     if (time.time() - lastMessageTime) > interval and isPaused == False:
