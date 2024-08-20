@@ -75,4 +75,6 @@ while True:
 
 
         isPaused = True
+    else:
+        print("Suguei")
     time.sleep(0.1)
