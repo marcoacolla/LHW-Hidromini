@@ -46,19 +46,19 @@ app.post('/api/sensors', (req, res) => {
             measures[key].value = novosDados[key].value;
         }
     }
-    broadcast(variables);
+    broadcast(measures);
 
-    res.json(variables);
+    res.json(measures);
 });
 
 // Rota GET para obter o estado atual das variáveis
 app.get('/api/sensors', (req, res) => {
-    res.json(variables);
+    res.json(measures);
 });
 
 // Servidor WebSocket para comunicação em tempo real
 wss.on('connection', ws => {
-    ws.send(JSON.stringify(variables)); // Envia os valores atuais quando um cliente se conecta
+    ws.send(JSON.stringify(measures)); // Envia os valores atuais quando um cliente se conecta
 });
 
 server.listen(port, () => {
