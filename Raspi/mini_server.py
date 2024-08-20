@@ -63,7 +63,7 @@ mqtt_client.on_message = on_message
 
 mqtt_client.connect("10.0.1.119",1883,60)
 # C_onnect to the MQTT server and process messages in a background thread. 
-mqtt_client.loop_forever()
+mqtt_client.loop_start()
 
 print("Suguei")
 
