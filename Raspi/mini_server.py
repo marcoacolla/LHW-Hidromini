@@ -69,7 +69,10 @@ mqtt_client.loop_forever()
 
 while True:
     if (time.time() - lastMessageTime) > interval and isPaused == False:
+        
         updateSite(toSend)
-        print("Passou 5s sem receber nada")
+
+
+
         isPaused = True
     time.sleep(0.1)
