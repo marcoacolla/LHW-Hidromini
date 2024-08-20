@@ -6,6 +6,10 @@ url = "http://10.0.0.181:3000/api/sensors"
 
 interval = 0.5
 
+lastMessageTime = time.time()
+isPaused = False
+
+
 measures = {  
     "pressure1": {"value": 0.0, "type": float, "id": "00"},
     "pressure2": {"value": 0.0, "type": float, "id": "01"},
@@ -33,6 +37,8 @@ def prepare_data(measures):
     for key, sub_dict in measures.items():
         to_send[key] = {"value": sub_dict["value"]}
     return to_send
+
+toSend = prepare_data(measures)
 
 def on_connect(client, userdata, flags, reason_code, properties):
     if reason_code.is_failure:
