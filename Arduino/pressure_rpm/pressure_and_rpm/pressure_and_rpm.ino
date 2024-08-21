@@ -9,7 +9,7 @@ const String pressure3_id = "02";
 const String motor_rpm_id = "03";
 const String gen_rpm_id = "04";
 const String dc_cur_id = "05";
-
+const String dc_volt_id = "06";
 
 
 const int PRESSURE1_PIN = A2;  // Pino conectado ao manômetro de pressão
@@ -23,6 +23,7 @@ const int CW_PIN = 2;
 
 volatile unsigned long pulses = 0;
 float voltage;
+int A05;
 
 void setup() {
   pinMode(CW_PIN, INPUT_PULLUP);
@@ -37,12 +38,15 @@ void setup() {
 
 void loop() {
   
-unsigned long currentMillis = millis();
-if (currentMillis - previousMillis >= INTERVAL) {
-  MEASURE_PRESSURE();
-  RPM_COUNT();
-  previousMillis = currentMillis;
-} 
+  unsigned long currentMillis = millis();
+  if (currentMillis - previousMillis >= INTERVAL) {
+    MEASURE_PRESSURE();
+    RPM_COUNT();
+    MEASURE_DC_CURRENT();
+    Send_Data(dc_volt_id, VOLTAGE_COUNT());
+    
+    previousMillis = currentMillis;
+  } 
 
 }
 
@@ -62,6 +66,7 @@ void MEASURE_DC_CURRENT(){
     AvgAcs = Samples / 10.0;                  // Calcula a média das amostras
     voltage = AvgAcs * (5.0 / 1024.0);        // Converte a média para tensão (0-5V)
     AcsValueF = (2.5 - voltage) * 1000 / 0.185; // Calcula a corrente em mA
+    Send_Data(dc_cur_id, AcsValueF);
 
 }
 void MEASURE_PRESSURE(){
@@ -72,14 +77,13 @@ void MEASURE_PRESSURE(){
     float bar3 = ((analogRead(PRESSURE3_PIN) * (sensorMaxP / 1023.0)));   
          // Converte a tensão para pressão em bar
   if(Serial3.available()){ 
-      Serial3.print(pressure1_id);
-      Serial3.println(bar1);
+      Send_Data(pressure1_id, bar1);
       delay(20);
-      Serial3.print(pressure2_id);
-      Serial3.println(bar2);
+
+      Send_Data(pressure2_id, bar2);
       delay(20);
-      Serial3.print(pressure3_id);
-      Serial3.println(bar3);
+
+      Send_Data(pressure3_id, bar3);
       delay(20);
 
 
@@ -89,28 +93,23 @@ void MEASURE_PRESSURE(){
 }
 void RPM_COUNT() {
     float rpm = (pulses * 60000.0) / (INTERVAL * PULSES_PER_CYCLE);
-
+    float gen_rpm = rpm *1.24;
     if(Serial3.available()){ 
-      Serial3.print(motor_rpm_id);
-      Serial3.println(rpm);
+      Send_Data(motor_rpm_id, rpm);
       delay(20);
-      Serial3.print(gen_rpm_id);
-      Serial3.println(rpm*1.24);
+
+      Send_Data(gen_rpm_id, gen_rpm);
+      delay(20);
     }
-    /*
-    Serial.print("RPM Gerador: ");
-    Serial.println(rpm*1.258);
-    Serial.print("Pulses: ");
-    Serial.println(pulses);
-    Serial.print("Pressure 1 (bar): ");
-    Serial.println(bar1);
-    Serial.print("Pressure 2 (bar): ");
-    Serial.println(bar2);
-    Serial.print("Pressure 3 (bar): ");
-    Serial.println(bar3);
-    Serial.print("Current (mA): ");
-    Serial.println(AcsValueF);
-    */
+
     pulses = 0;
 }
+void Send_Data(String data_id, float data){
+  Serial3.print(data_id);
+  Serial3.println(data);
+}
 
+float VOLTAGE_COUNT(){
+  float dcVoltage = (5.0*A05/1023.0) *100.0/0.285325;
+  return dcVoltage;
+}
