@@ -15,7 +15,8 @@ const String dc_volt_id = "06";
 const int PRESSURE1_PIN = A2;  // Pino conectado ao manômetro de pressão
 const int PRESSURE2_PIN = A0;  // Pino conectado ao manômetro de pressão
 const int PRESSURE3_PIN = A1;  // Pino conectado ao manômetro de pressão
-const int CURRENT_PIN = A3;   // Pino conectado ao sensor ACS712
+const int CURRENT_PIN = A3; 
+const int VOLTAGE_PIN = A5;  // Pino conectado ao sensor ACS712
 float sensorMaxP = 10.0;
 
 const unsigned long PULSES_PER_CYCLE = 1000;
@@ -23,7 +24,7 @@ const int CW_PIN = 2;
 
 volatile unsigned long pulses = 0;
 float voltage;
-int A05;
+
 
 void setup() {
   pinMode(CW_PIN, INPUT_PULLUP);
@@ -57,15 +58,18 @@ void pulseCounter(){
 void MEASURE_DC_CURRENT(){
   
     // Leitura do sensor ACS712 com amostragem
-    float AcsValue = 0.0, Samples = 0.0, AvgAcs = 0.0, AcsValueF = 0.0;
+    float AvgAcs = 0.0, AcsValueF = 0.0;
+    int AcsValue, Samples = 0;
     for (int x = 0; x < 10; x++) {
         AcsValue = analogRead(CURRENT_PIN);   // Lê os valores do sensor de corrente
         Samples += AcsValue;                  // Soma as amostras
         delay(3);                             // Aguarda 3ms entre as amostras
     }
-    AvgAcs = Samples / 10.0;                  // Calcula a média das amostras
+    AvgAcs = Samples / 10.0;;
+                   // Calcula a média das amostras
     voltage = AvgAcs * (5.0 / 1024.0);        // Converte a média para tensão (0-5V)
-    AcsValueF = (2.5 - voltage) * 1000 / 0.185; // Calcula a corrente em mA
+    AcsValueF = (2.5 - voltage)/ 0.100;
+    Serial.println(AcsValueF);   // Calcula a corrente em mA
     Send_Data(dc_cur_id, AcsValueF);
 
 }
@@ -98,13 +102,14 @@ void RPM_COUNT() {
 void Send_Data(String data_id, float data){
   Serial3.print(data_id);
   Serial3.println(data);
-  Serial.print(data_id);
-  Serial.println(data);
+  //Serial.print(data_id);
+  //Serial.println(data);
   delay(20);
 }
 
 void VOLTAGE_COUNT(){
-  float dcVoltage = (5.0*A05/1023.0) *100.0/0.285325;
+  int A05 = analogRead(A5);  // Leitura do pino analógico A5
+  float dcVoltage = (5.0 * A05 / 1023.0) * 100.0 / 0.285325;
 
   if(Serial3.available()){ 
       Send_Data(dc_volt_id, dcVoltage);
