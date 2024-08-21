@@ -40,10 +40,10 @@ void loop() {
   
   unsigned long currentMillis = millis();
   if (currentMillis - previousMillis >= INTERVAL) {
-    MEASURE_PRESSURE();
     RPM_COUNT();
+    MEASURE_PRESSURE();
     MEASURE_DC_CURRENT();
-    Send_Data(dc_volt_id, VOLTAGE_COUNT());
+    VOLTAGE_COUNT();
     
     previousMillis = currentMillis;
   } 
@@ -78,16 +78,10 @@ void MEASURE_PRESSURE(){
          // Converte a tensão para pressão em bar
   if(Serial3.available()){ 
       Send_Data(pressure1_id, bar1);
-      delay(20);
 
       Send_Data(pressure2_id, bar2);
-      delay(20);
 
       Send_Data(pressure3_id, bar3);
-      delay(20);
-
-
-      delay(20);
     }
 
 }
@@ -96,10 +90,7 @@ void RPM_COUNT() {
     float gen_rpm = rpm *1.24;
     if(Serial3.available()){ 
       Send_Data(motor_rpm_id, rpm);
-      delay(20);
-
       Send_Data(gen_rpm_id, gen_rpm);
-      delay(20);
     }
 
     pulses = 0;
@@ -107,9 +98,16 @@ void RPM_COUNT() {
 void Send_Data(String data_id, float data){
   Serial3.print(data_id);
   Serial3.println(data);
+  Serial.print(data_id);
+  Serial.println(data);
+  delay(20);
 }
 
-float VOLTAGE_COUNT(){
+void VOLTAGE_COUNT(){
   float dcVoltage = (5.0*A05/1023.0) *100.0/0.285325;
-  return dcVoltage;
+
+  if(Serial3.available()){ 
+      Send_Data(dc_volt_id, dcVoltage);
+
+    }
 }

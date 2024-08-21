@@ -17,7 +17,7 @@ const char *mqtt_topics[] = {
     "/mcc/dc_volt"
 };  // MQTT topic
 
-
+const char* penis = "/mcc/dc_volt";
 const int num_topics = sizeof(mqtt_topics) / sizeof(mqtt_topics[0]); 
 
 const int mqtt_port = 1883;  // MQTT port (TCP)
@@ -69,13 +69,13 @@ void loop() {
     if (!mqtt_client.connected()) {
       connectToMQTTBroker();
     } else {
-      r
-      String bufferString = Serial.readStringUntil('\n');  // Lê até encontrar uma nova linha
-      bufferString.trim();  // Remove espaços em branco extras, incluindo novas linhas
-
-      processMessage(bufferString);
-
-      delay(2000);
+      if (Serial.available() > 0) {
+        // Recebe o código via Serial
+        String code = Serial.readStringUntil('\n');  // Lê até encontrar uma nova linha
+        code.trim();  // Remove espaços em branco extras
+        processMessage(code);
+        }
+      delay(20);
     }
     mqtt_client.loop();  // Mantém a conexão MQTT ativa
 }
