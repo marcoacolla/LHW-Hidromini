@@ -79,10 +79,12 @@ void MEASURE_DC_CURRENT(){
 void MEASURE_PRESSURE(){
   
     // Leitura do manômetro de pressão
-  float bar1 = ((analogRead(PRESSURE1_PIN) * (sensorMaxP / 1023.0)));        // Converte a tensão para pressão em bar
-  float bar2 = ((analogRead(PRESSURE2_PIN) * (sensorMaxP / 1023.0)));      // Converte a tensão para pressão em bar
+  float bar1 = ((analogRead(PRESSURE1_PIN) * (sensorMaxP / 1023.0)));
+  delay(20);       // Converte a tensão para pressão em bar
+  float bar2 = ((analogRead(PRESSURE2_PIN) * (sensorMaxP / 1023.0)));
+  delay(20);     // Converte a tensão para pressão em bar
   float bar3 = ((analogRead(PRESSURE3_PIN) * (sensorMaxP / 1023.0)));   
-        // Converte a tensão para pressão em bar
+  delay(20);
   Send_Data(pressure1_id, bar1);
 
   Send_Data(pressure2_id, bar2);
