@@ -20,6 +20,8 @@ const int VOLTAGE_PIN = A4;  // Pino conectado ao sensor ACS712
 
 float sensorMaxP = 10.0;
 
+int waitDelay = 70;
+
 const unsigned long PULSES_PER_CYCLE = 1000;
 const int CW_PIN = 2;
 
@@ -77,44 +79,38 @@ void MEASURE_DC_CURRENT(){
 void MEASURE_PRESSURE(){
   
     // Leitura do manômetro de pressão
-    float bar1 = ((analogRead(PRESSURE1_PIN) * (sensorMaxP / 1023.0)));        // Converte a tensão para pressão em bar
-    float bar2 = ((analogRead(PRESSURE2_PIN) * (sensorMaxP / 1023.0)));      // Converte a tensão para pressão em bar
-    float bar3 = ((analogRead(PRESSURE3_PIN) * (sensorMaxP / 1023.0)));   
-         // Converte a tensão para pressão em bar
-  if(Serial3.available()){ 
-      Send_Data(pressure1_id, bar1);
+  float bar1 = ((analogRead(PRESSURE1_PIN) * (sensorMaxP / 1023.0)));        // Converte a tensão para pressão em bar
+  float bar2 = ((analogRead(PRESSURE2_PIN) * (sensorMaxP / 1023.0)));      // Converte a tensão para pressão em bar
+  float bar3 = ((analogRead(PRESSURE3_PIN) * (sensorMaxP / 1023.0)));   
+        // Converte a tensão para pressão em bar
+  Send_Data(pressure1_id, bar1);
 
-      Send_Data(pressure2_id, bar2);
+  Send_Data(pressure2_id, bar2);
 
-      Send_Data(pressure3_id, bar3);
-    }
+  Send_Data(pressure3_id, bar3);
 
 }
 void RPM_COUNT() {
-    float rpm = (pulses * 60000.0) / (INTERVAL * PULSES_PER_CYCLE);
-    float gen_rpm = rpm *1.24;
-    if(Serial3.available()){ 
-      Send_Data(motor_rpm_id, rpm);
-      Send_Data(gen_rpm_id, gen_rpm);
-    }
+  float rpm = (pulses * 60000.0) / (INTERVAL * PULSES_PER_CYCLE);
+  float gen_rpm = rpm *1.24;
+  Send_Data(motor_rpm_id, rpm);
+  Send_Data(gen_rpm_id, gen_rpm);
 
-    pulses = 0;
+  pulses = 0;
 }
 void Send_Data(String data_id, float data){
-  Serial3.print(data_id);
-  Serial3.println(data);
-  //Serial.print(data_id);
-  //Serial.println(data);
-  delay(20);
+  if(Serial3.available()){
+    Serial3.print(data_id);
+    Serial3.println(data);
+    delay(waitDelay);
+  }
+
 }
 
 void VOLTAGE_COUNT(){
   int reading = analogRead(VOLTAGE_PIN);  // Leitura do pino analógico A5
 
   float dcVoltage = (reading / 1023.0) * 105;
+  Send_Data(dc_volt_id, dcVoltage);
 
-  if(Serial3.available()){ 
-      Send_Data(dc_volt_id, dcVoltage);
-
-    }
 }
