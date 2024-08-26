@@ -79,6 +79,12 @@ function writeCSV(data){
             console.error('Erro ao salvar dados no CSV:', err);
         });
 }
+
+fs.unlink(csvFilePath,function(err){
+    if(err) return console.log(err);
+    console.log('file deleted successfully');
+}); 
+
 // Rota POST para atualizar uma ou mais variáveis
 app.post('/api/sensors', (req, res) => {
     const novosDados = req.body;
