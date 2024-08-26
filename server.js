@@ -10,8 +10,9 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 var csvFolder = './CSV';
+var csvFile = 'sensor_measures.csv'
 
-const csvFilePath = path.join(__dirname, csvFolder + '/sensor_measures.csv');
+const csvFilePath = path.join(__dirname, csvFolder + '/' + csvFile);
 
 const port = 3000;
 
