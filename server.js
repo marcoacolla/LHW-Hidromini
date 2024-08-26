@@ -9,7 +9,9 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-const csvFilePath = path.join(__dirname, 'CSV/sensor_measures.csv');
+var csvFolder = './CSV';
+
+const csvFilePath = path.join(__dirname, csvFolder + '/sensor_measures.csv');
 
 const port = 3000;
 
@@ -18,6 +20,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 
+
+
+if (!fs.existsSync(csvFolder)){
+    fs.mkdirSync(csvFolder);
+    console.log("Folder created sucessfully");
+}
+
+if(fs.existsSync(csvFilePath)){
+    console.log("Existe");
+    fs.unlink(csvFilePath,function(err){
+        if(err) return console.log(err);
+        console.log('file deleted successfully');
+    }); 
+}
 
 let measures = {
     "pressure1": {"value": 0.0},
@@ -80,10 +96,7 @@ function writeCSV(data){
         });
 }
 
-fs.unlink(csvFilePath,function(err){
-    if(err) return console.log(err);
-    console.log('file deleted successfully');
-}); 
+
 
 // Rota POST para atualizar uma ou mais variáveis
 app.post('/api/sensors', (req, res) => {
