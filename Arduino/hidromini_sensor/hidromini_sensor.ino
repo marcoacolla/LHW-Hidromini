@@ -6,6 +6,7 @@ unsigned long previousMillis = 0;
 const String pressure1_id = "00";
 const String pressure2_id = "01";
 const String pressure3_id = "02";
+
 const String motor_rpm_id = "03";
 const String gen_rpm_id = "04";
 const String dc_cur_id = "05";
@@ -18,7 +19,7 @@ const int PRESSURE3_PIN = A1;  // Pino conectado ao manômetro de pressão
 const int CURRENT_PIN = A3; 
 const int VOLTAGE_PIN = A4;  // Pino conectado ao sensor ACS712
 
-float sensorMaxP = 10.0;
+float sensorMaxP = 5.0;
 
 int waitDelay = 70;
 
@@ -81,7 +82,7 @@ void MEASURE_PRESSURE(){
     // Leitura do manômetro de pressão
   float bar1 = ((analogRead(PRESSURE1_PIN) * (sensorMaxP / 1023.0)));
   delay(20);       // Converte a tensão para pressão em bar
-  float bar2 = ((analogRead(PRESSURE2_PIN) * (sensorMaxP / 1023.0)));
+  float bar2 = ((analogRead(PRESSURE2_PIN) * (25 / 1023.0)));
   delay(20);     // Converte a tensão para pressão em bar
   float bar3 = ((analogRead(PRESSURE3_PIN) * (sensorMaxP / 1023.0)));   
   delay(20);
