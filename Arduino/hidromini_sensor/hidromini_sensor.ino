@@ -1,5 +1,5 @@
 
-const unsigned long INTERVAL = 2500;
+const unsigned long INTERVAL = 10000;
 unsigned long previousMillis = 0;
 
 

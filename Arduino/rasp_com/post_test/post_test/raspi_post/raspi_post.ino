@@ -17,7 +17,7 @@ const char *mqtt_topics[] = {
     "/mcc/dc_volt"
 };  // MQTT topic
 
-const char* penis = "/mcc/dc_volt";
+const char* test = "/mcc/dc_volt";
 const int num_topics = sizeof(mqtt_topics) / sizeof(mqtt_topics[0]); 
 
 const int mqtt_port = 1883;  // MQTT port (TCP)
@@ -43,23 +43,23 @@ void connectToWiFi() {
     Serial.print("Connecting to WiFi");
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
-        Serial.print(".");
+        //Serial.print(".");
     }
-    Serial.println("\nConnected to the WiFi network");
+    //Serial.println("\nConnected to the WiFi network");
 }
 
 void connectToMQTTBroker() {
   while (!mqtt_client.connected()) {
     String client_id = "esp8266-client-" + String(WiFi.macAddress());
-    Serial.printf("Connecting to MQTT Broker as %s.....\n", client_id.c_str());
+    //Serial.printf("Connecting to MQTT Broker as %s.....\n", client_id.c_str());
     if (mqtt_client.connect(client_id.c_str())) {
-      Serial.println("Connected to MQTT broker");
+      //Serial.println("Connected to MQTT broker");
       // Remover a linha de inscrição (subscribe)
       // mqtt_client.subscribe(mqtt_topic);  // Esta linha foi removida
     } else {
-      Serial.print("Failed to connect to MQTT broker, rc=");
-      Serial.print(mqtt_client.state());
-      Serial.println(" try again in 5 seconds");
+      //Serial.print("Failed to connect to MQTT broker, rc=");
+      //Serial.print(mqtt_client.state());
+      //Serial.println(" try again in 5 seconds");
       delay(5000);
     }
   }
@@ -74,8 +74,9 @@ void loop() {
         String code = Serial.readStringUntil('\n');  // Lê até encontrar uma nova linha
         code.trim();  // Remove espaços em branco extras
         processMessage(code);
+        code = "";
         }
-      delay(20);
+      delay(100);
     }
     mqtt_client.loop();  // Mantém a conexão MQTT ativa
 }
@@ -96,11 +97,11 @@ void processMessage(String message) {
         dtostrf(valueNumber, 6, 2, buffer);  // Converte o valor para string com 2 casas decimais
         mqtt_client.publish(topic, buffer);  // Publica o valor no tópico correspondente
 
-        Serial.print("Published to ");
-        Serial.print(topic);
-        Serial.print(": ");
-        Serial.println(buffer);
+        //Serial.print("Published to ");
+        //Serial.print(topic);
+        //Serial.print(": ");
+        //Serial.println(buffer);
     } else {
-        Serial.println("ID fora do intervalo.");
+        //Serial.println("ID fora do intervalo.");
     }
 }
