@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/scripts.js"></script>
+  </head>
+  <body>
+    <h1>HIDROmini Dados - Arduino Mega WiFi Web Server</h1>
+    <div class="container">
+      <div class="button-container">
+        <p class="button-title">Sensor de Pressao 1</p>
+        <button class="button" id="pressure1">0.00 Bar</button>
+      </div>
+      <div class="button-container">
+        <p class="button-title">Sensor de Pressao 2</p>
+        <button class="button" id="pressure2">0.00 Bar</button>
+      </div>
+      <div class="button-container">
+        <p class="button-title">Sensor de Pressao 3</p>
+        <button class="button" id="pressure3">0.00 Bar</button>
+      </div>
+      <div class="button-container">
+        <p class="button-title">Frequencia da Turbina</p>
+        <button class="button" id="motor_rpm">0.00 RPM</button>
+      </div>
+      <div class="button-container">
+        <p class="button-title">Frequencia do Gerador</p>
+        <button class="button" id="gen_rpm">0.00 RPM</button>
+      </div>
+      <div class="button-container">
+        <p class="button-title">Frequencia da Tensao Alternada</p>
+        <button class="button">0.00 Hz</button>
+      </div>
+      <div class="button-container">
+        <p class="button-title">Vmax da Tensao Alternada</p>
+        <button class="button">0.00 VAC</button>
+      </div>
+      <div class="button-container">
+        <p class="button-title">Tensao DC</p>
+        <button class="button" id="dc_volt">0.00 VDC</button>
+      </div>
+      <div class="button-container">
+        <p class="button-title">Corrente DC</p>
+        <button class="button" id="dc_cur">0.00 A</button>
+      </div>
+      <div class="button-container">
+        <p class="button-title">Potencia</p>
+        <button class="button">0.00 W</button>
+      </div>
+      <div class="button-container">
+        <p class="button-title">Válvula 1</p>
+        <button class="button" id="valve1">Aberta</button>
+      </div>
+      <div class="button-container">
+        <p class="button-title">Válvula 2</p>
+        <button class="button" id="valve2">Aberta</button>
+      </div>
+    </div>
+    <div id="footer">Última medição feita em: <span id="update_time">0/00/0000</span></div>
+  </body>
+</html>
