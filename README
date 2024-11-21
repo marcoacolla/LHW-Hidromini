@@ -1,0 +1,9 @@
+
+## Abrindo o Website
+
+Para a abrir o website partindo da pasta *source*, usa-se os seguintes comandos:
+
+    cd Website
+    node .\server.js
+
+e então acessar 
