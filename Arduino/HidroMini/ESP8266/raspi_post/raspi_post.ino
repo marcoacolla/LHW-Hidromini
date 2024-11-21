@@ -2,7 +2,7 @@
 #include <PubSubClient.h>
 
 // WiFi settings
-const char *ssid = "LAB LHWC";             // Replace with your WiFi name
+const char *ssid = "LHW TERREO 2,4GHz";             // Replace with your WiFi name
 const char *password = "MOBILIDADELHWC";   // Replace with your WiFi password
 
 // MQTT Broker settings
@@ -43,23 +43,23 @@ void connectToWiFi() {
     Serial.print("Connecting to WiFi");
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
-        //Serial.print(".");
+        Serial.print(".");
     }
-    //Serial.println("\nConnected to the WiFi network");
+    Serial.println("\nConnected to the WiFi network");
 }
 
 void connectToMQTTBroker() {
   while (!mqtt_client.connected()) {
     String client_id = "esp8266-client-" + String(WiFi.macAddress());
-    //Serial.printf("Connecting to MQTT Broker as %s.....\n", client_id.c_str());
+    Serial.printf("Connecting to MQTT Broker as %s.....\n", client_id.c_str());
     if (mqtt_client.connect(client_id.c_str())) {
-      //Serial.println("Connected to MQTT broker");
+      Serial.println("Connected to MQTT broker");
       // Remover a linha de inscrição (subscribe)
       // mqtt_client.subscribe(mqtt_topic);  // Esta linha foi removida
     } else {
-      //Serial.print("Failed to connect to MQTT broker, rc=");
-      //Serial.print(mqtt_client.state());
-      //Serial.println(" try again in 5 seconds");
+      Serial.print("Failed to connect to MQTT broker, rc=");
+      Serial.print(mqtt_client.state());
+      Serial.println(" try again in 5 seconds");
       delay(5000);
     }
   }
@@ -102,6 +102,6 @@ void processMessage(String message) {
         //Serial.print(": ");
         //Serial.println(buffer);
     } else {
-        //Serial.println("ID fora do intervalo.");
+        Serial.println("ID fora do intervalo.");
     }
 }
