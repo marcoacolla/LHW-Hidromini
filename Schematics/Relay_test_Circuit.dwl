@@ -1,3 +1,0 @@
-ACER
-LAPTOP-RKV2NA2L 
-Thursday, March 6, 2025  3:53:05 PM
