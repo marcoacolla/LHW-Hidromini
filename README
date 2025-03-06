@@ -1,35 +1,43 @@
 ## Abrindo o Website
 
-Para a abrir o website partindo da pasta *source*, usa-se os seguintes comandos:
+Para abrir o website a partir da pasta *source*, usa-se os seguintes comandos:
 
     cd Website
     node .\server.js
 
-Se tudo está nos conformes, o terminal devolve as seguintes mensagens:
+Se tudo estiver nos conformes, o terminal devolverá as seguintes mensagens:
 
     Servidor rodando em http://localhost:3000
-    
- Para acessar o site então, basta entrar no [link devolvido](http://localhost:3000).
+
+Para acessar o site, basta entrar no [link devolvido](http://localhost:3000).
 
 > Para acessar em qualquer dispositivo, é necessário estar na mesma rede Wi-Fi e conhecer o IP do computador host do website e acessar o URL no formato `http://[IpV4_host]:3000`
-> É possível saber o IPV4 do computador usando o comando `ipconfig` no `cmd`
+> 
+> É possível saber o IPV4 do computador usando o comando `ipconfig` no `cmd`.
 
 ## Abrindo Servidor MQTT
-Para que os dados do site sejam atualizados, é necessário que a Raspiberry PI esteja ligada e com o servidor dos dados ligado e funcionando. Para fazer isso, segue os seguintes passos:
+
+Para que os dados do site sejam atualizados, é necessário que a Raspberry Pi esteja ligada e com o servidor de dados funcionando. Para fazer isso, siga os seguintes passos:
+
 ### Passo 1: Ligar a Raspi
+
 Basta conectá-la na tomada ou em um computador através do cabo USB-C.
+
 ### Passo 2: Acessando a Raspi no computador
-Acessar a Raspiberry pelo computador não é necessário, mas altamente recomendado. Isso porque é possível realizar todos os passos através exclusivamente da Raspi com um teclado e mouse, mas é muito mais fácil e organizado realizar todos os comandos e acessar os logs no mesmo dispositivo.
 
-Para acessar a Raspi, primeiro certifique-se que o computador está na mesma rede que o dispositivo. 
-> A rede configurada atualmente é a rede `LHW TERREO 2,4GHz`
->
-Deve-se abrir o `cmd` e executar o comando:
+Acessar a Raspberry Pi pelo computador não é necessário, mas altamente recomendado. Isso porque é possível realizar todos os passos exclusivamente na Raspberry Pi com um teclado e mouse, mas é muito mais fácil e organizado realizar todos os comandos e acessar os logs no mesmo dispositivo.
 
-    >ssh marcocolla@10.0.1.119
-    marcocolla@10.0.1.119's password: >onepiece
-  > 10.0.1.119 é o IPv4 da Raspi, para verificar isso deve-se conectar um teclado a ela e executar o comando `ifconfig`
-  
+Para acessar a Raspberry Pi, primeiro certifique-se de que o computador está na mesma rede que o dispositivo. 
+> A rede configurada atualmente é a rede `LHW TERREO 2,4GHz`.
+
+Abra o `cmd` e execute o comando:
+
+    > ssh marcocolla@10.0.1.119
+    marcocolla@10.0.1.119's password: 
+    > onepiece
+    
+> 10.0.1.119 é o IPv4 da Raspberry Pi. Para verificar isso, deve-se conectar um teclado à ela e executar o comando `ifconfig`.
+
 A resposta no terminal deve se parecer com isso:
 
     The programs included with the Debian GNU/Linux system are free software;
@@ -41,11 +49,12 @@ A resposta no terminal deve se parecer com isso:
     Last login: Thu Nov 21 14:09:49 2024 from 10.0.0.181
     
     marcocolla@hidromini:~ $
-    
- ### Passo 3: Abrindo o servidor
- Esse documento visa esclarecer como acessar o servidor em uma ambiente já configurado, em caso de uma nova Raspberry ainda não configurada, recomenda-se a criação de um ambiente virtual Python para a execução dos arquivos.
 
-Para fazer tudo que é necessário na Raspi, executa-se os seguintes comandos:
+### Passo 3: Abrindo o servidor
+
+Esse documento visa esclarecer como acessar o servidor em um ambiente já configurado. Em caso de uma nova Raspberry Pi ainda não configurada, recomenda-se a criação de um ambiente virtual Python para a execução dos arquivos.
+
+Para fazer tudo que é necessário na Raspberry Pi, execute os seguintes comandos:
 
     source ~/hidro_server/virtual_env/bin/activate
     cd ~/hidro_server/LHW-Hidromini/Raspi/
@@ -56,6 +65,4 @@ Isso acessa o ambiente virtual, acessa o local dos arquivos e executa o arquivo 
     MQTT to InfluxDB bridge
     Status Code: 200
 
-Seguido de diversas respostas do Esp8266
-
-
+Seguido de diversas respostas do ESP8266.
