@@ -1,4 +1,4 @@
-const socket = new WebSocket('ws://10.0.0.181:3000');
+const socket = new WebSocket('ws://10.0.1.119:3000');
 
 
  // Função para atualizar o valor na página
