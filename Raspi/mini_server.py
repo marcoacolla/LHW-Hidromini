@@ -2,7 +2,7 @@ import paho.mqtt.client as mqtt
 import requests
 import time
 
-url = "http://localhost:3000/api/sensors"
+url = "http://10.0.1.119:3000/api/sensors"
 
 interval = 0.5
 
