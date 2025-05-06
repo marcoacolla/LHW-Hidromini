@@ -2,7 +2,7 @@
 
 Para abrir o website a partir da pasta *source*, usa-se os seguintes comandos:
 
-    cd Website
+    cd C:\Users\ACER\Documents\LHW-Hidromini\Website
     node .\server.js
 
 Se tudo estiver nos conformes, o terminal devolverá as seguintes mensagens:
