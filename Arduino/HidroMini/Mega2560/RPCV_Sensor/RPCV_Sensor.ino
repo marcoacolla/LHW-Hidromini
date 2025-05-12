@@ -13,9 +13,9 @@ const String dc_cur_id = "05";
 const String dc_volt_id = "06";
 
 
-const int PRESSURE1_PIN = A2;  // Pino conectado ao manômetro de pressão
-const int PRESSURE2_PIN = A0;  // Pino conectado ao manômetro de pressão
-const int PRESSURE3_PIN = A1;  // Pino conectado ao manômetro de pressão
+const int PRESSURE1_PIN = A0;  // Pino conectado ao manômetro de pressão
+const int PRESSURE2_PIN = A1;  // Pino conectado ao manômetro de pressão
+const int PRESSURE3_PIN = A2;  // Pino conectado ao manômetro de pressão
 const int CURRENT_PIN = A3; 
 const int VOLTAGE_PIN = A4;  // Pino conectado ao sensor ACS712
 
@@ -82,7 +82,7 @@ void MEASURE_PRESSURE(){
     // Leitura do manômetro de pressão
   float bar1 = ((analogRead(PRESSURE1_PIN) * (sensorMaxP / 1023.0)));
   delay(20);       // Converte a tensão para pressão em bar
-  float bar2 = ((analogRead(PRESSURE2_PIN) * (25 / 1023.0)));
+  float bar2 = ((analogRead(PRESSURE2_PIN) * (sensorMaxP / 1023.0)));
   delay(20);     // Converte a tensão para pressão em bar
   float bar3 = ((analogRead(PRESSURE3_PIN) * (sensorMaxP / 1023.0)));   
   delay(20);
@@ -113,7 +113,7 @@ void Send_Data(String data_id, float data){
 void VOLTAGE_COUNT(){
   int reading = analogRead(VOLTAGE_PIN);  // Leitura do pino analógico A5
 
-  float dcVoltage = (reading / 1023.0) * 105;
+  float dcVoltage = (reading / 1023.0) * 25;
   Send_Data(dc_volt_id, dcVoltage);
 
 }
